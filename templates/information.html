@@ -86,7 +86,7 @@ what's my name
 </div>
 <div class="col">
     <div class="collapse multi-collapse" id="multiCollapseExample2">
-        <form action="{{ url_for('display' , city_name = location.city,  city_id = location.id) }}"method="post">
+        <form action="{{ url_for('display' , zipp = location.zipcode) }}"method="post">
           <div class="form-group">
             <label for="Commenting">Comment box</label>
             <input type="text" class="form-control" placeholder="Leave a review about this place." name = "user_review">
