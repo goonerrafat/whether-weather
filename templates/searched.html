@@ -9,7 +9,7 @@ This is Your Search Result!
 <div class="list-group" style="width: 80%;  margin: 80px auto;">
     {% for search_item in search_items %}
 
-    <a href="{{ url_for('display' , city_name = search_item.city,  city_id = search_item.id) }}" class="list-group-item" value = {{search_item.id}}>
+    <a href="{{ url_for('display' , zippy = search_item.zipcode}}" class="list-group-item" value = {{search_item.id}}>
         <p>City of {{search_item.city}}.<br> 
         <small>from state {{search_item.state}} with Zipcode {{search_item.zipcode}}.</small></p>
     </a>

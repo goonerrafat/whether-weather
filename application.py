@@ -95,10 +95,10 @@ def search_result(search_item):
     return render_template("searched.html" , search_items = city_list)
 
 
-@app.route('/<string:city_name>' ,methods = ['POST' , 'GET'])
-def display(city_name):
-    city_id=request.args.get('city_id')
-    city = db.execute("SELECT * FROM cities WHERE id = :id" ,{"id":city_id}).fetchone()
+@app.route('/search/<string:zippy>' ,methods = ['POST' , 'GET'])
+def display(zippy):
+    #city_id=request.args.get('city_id')
+    city = db.execute("SELECT * FROM cities WHERE Zipcode = :zippy" , {"zippy" : str(zippy)}).fetchone()
     weather_information = utilities.json.loads(utilities.handle_weather(str(city.lat) , str(city.long)))
     timeline = weather_information["time"]
     timeline = datetime.fromtimestamp(int(timeline)).strftime('Date: %Y-%m-%d,  Time: %H:%M:%S')
@@ -110,12 +110,12 @@ def display(city_name):
         user_id = user_id.id
 
         db.execute("INSERT INTO reviews (username, review, timeline, city_id, user_id) VALUES(:username, :review, :timeline, :city_id,\
-            :user_id)", {"username":session['user'], "review":str(review), "timeline":str(timeline), "city_id":int(city_id), "user_id":int(user_id)})
+            :user_id)", {"username":session['user'], "review":str(review), "timeline":str(timeline), "city_id":int(city.id), "user_id":int(user_id)})
         db.commit()
         flash("Your review is recorded!") ;
 
     
-    user_reviews = db.execute("SELECT * FROM reviews WHERE city_id = :city_id" , {"city_id":int(city_id)}).fetchall()
+    user_reviews = db.execute("SELECT * FROM reviews WHERE city_id = :city_id" , {"city_id":int(city.id)}).fetchall()
     total_checkin = len(user_reviews)
     if(db.execute("SELECT * FROM reviews WHERE city_id = :city_id AND username = :username" , 
         {"city_id":int(city_id), "username": session['user']}).rowcount >0):
