@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+Search Me!
+{% endblock %}
+
+{% block body %}
+<form style="width: 60%;  margin: 0 auto;" action="{{ url_for('search') }}" method="post">
+    <div class="form-group" style="margin:20px;"> 
+      <input type="text" class="form-control"placeholder="Search City,Zipcode" name = "search_item">
+      {% with error = get_flashed_messages() %}
+      {% for er in error %}
+      <div class="alert alert-danger flashes" role="alert">
+        {{er}}{{" "}}
+    </div> 
+    {% endfor %}
+    {% endwith %}
+</div>
+<button type="submit" class="btn btn-primary" style="margin:auto;display: block;">Search</button> 
+</form>
+{% endblock %}

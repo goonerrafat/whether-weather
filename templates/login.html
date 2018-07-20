@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous"> 
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script> 
+
+  
+</head>
+<body>
+
+ <div class="jumbotron">
+  <h1 class="display-4">Whether Weather!</h1>
+  <p class="lead">This is your goto place for knowing everything about weather!</p>
+</div> 
+  <form style="width: 60%;  margin: 0 auto;" action="{{ url_for('login') }}" method="post">
+    <h1 style="margin: 20px;color: #7E0080;">Login</h1>
+    <div class="form-group" style="margin:20px;"> 
+      <label for="username">username</label>
+      <input type="text" class="form-control"placeholder="Enter username" name = "username">
+      {% if message %}
+      <div class="alert alert-{{al_type}}" role="alert">
+       {{message}} 
+      </div> 
+      {% endif %}
+    </div>
+    <div class="form-group" style="margin:20px;">
+      <label for="password">password</label>
+      <input type="password" class="form-control" placeholder="Password" name = "password">
+    </div> 
+    <button type="submit" class="btn btn-primary" style="margin: 20px;">Login</button>
+    <p style="margin: 20px">New here? <a href="{{url_for('signup')}}">create a new account</a></p>
+
+  </form>
+
+</body>
+</html>

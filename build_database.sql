@@ -1,0 +1,24 @@
+CREATE TABLE cities (
+id SERIAL PRIMARY KEY,
+Zipcode VARCHAR NOT NULL,
+City VARCHAR NOT NULL,
+State VARCHAR NOT  NULL,
+Lat VARCHAR NOT NULL,
+Long VARCHAR NOT NULL,
+Population INTEGER NOT NULL 
+);
+
+CREATE TABLE userlist (
+    id SERIAL PRIMARY KEY ,
+    username VARCHAR NOT NULL ,
+    password VARCHAR NOT NULL
+) ;
+
+CREATE TABLE reviews (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR NOT NULL,
+    review VARCHAR NOT NULL,
+    timeline VARCHAR NOT NULL,
+    city_id INTEGER REFERENCES cities,
+    user_id INTEGER REFERENCES userlist 
+);

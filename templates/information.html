@@ -1,0 +1,111 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+what's my name
+{% endblock %}
+
+{% block body %}
+
+<h1 style="margin:50px auto 0px ;">Location Details:</h1>
+
+<table class="table table-striped" style="margin: auto auto 80px;">
+    <thead>
+        <th scope="col">City Name</th>
+        <th scope="col">State</th>
+        <th scope="col">Zipcode</th>
+        <th scope="col">Lattitude</th>
+        <th scope="col">Longitude</th>
+
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">{{ location.city }}</th>
+            <td>{{ location.state }}</td>
+            <td>{{ location.zipcode }}</td>
+            <td>{{ location.lat }}</td>
+            <td>{{ location.long }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h1 style="margin:50px auto 0px;">Current Weather Information:</h1>
+
+<table class="table table-striped" style = "margin: auto auto 80px ;">
+    <thead>
+        <th scope="col">Time</th>
+        <th scope="col">Weather Summary</th>
+        <th scope="col">Temparature</th>
+        <th scope="col">Dew Point</th>
+        <th scope="col">Humidity</th>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">{{weather_information.time}}</th>
+            <td>{{weather_information.summary}}</td>
+            <td>{{weather_information.temperature}}</td>
+            <td>{{weather_information.dewPoint}}</td>
+            <td>{{weather_information.humidity}}%</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h1 >Check Ins:</h1>
+
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">User Reviews({{check_ins}})</a>
+  {% if button_disabled %}
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" disabled>Check In</button>
+  {% else %}
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Check In</button>
+  {% endif %}
+
+</p>
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+
+        <table class="table table-striped">
+            <thead>
+                <th scope="col">Username</th>
+                <th scope="col">Comments</th>
+            </thead>
+            <tbody>
+                {% for user_review in user_reviews %}
+                <tr>
+                    <td><b>{{ user_review.username }}</b> <br> <p><small> on {{user_review.timeline}}</small></p></sup></td>
+                    <td>{{ user_review.review }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample2">
+        <form action="{{ url_for('display' , city_name = location.city,  city_id = location.id) }}"method="post">
+          <div class="form-group">
+            <label for="Commenting">Comment box</label>
+            <input type="text" class="form-control" placeholder="Leave a review about this place." name = "user_review">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button> 
+    </form>
+</div>
+</div>
+</div>
+{% with msgs = get_flashed_messages() %}
+      {% for msg in msgs %}
+      <div class="alert alert-success flashes" role="alert">
+        {{msg}}{{" "}}
+    </div> 
+    {% endfor %}
+    {% endwith %}
+
+<hr>
+
+
+
+{% endblock %}
